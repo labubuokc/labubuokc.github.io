@@ -109,7 +109,6 @@
         <!-- Section 1: Hero -->
         <section id="hero" class="scroll-section relative flex items-center justify-center bg-cover bg-center p-4">
             <div class="text-center text-white">
-                <!-- UPDATED: More responsive text sizes -->
                 <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase text-shadow">Labubu Closet</h1>
                 <p class="mt-4 text-lg sm:text-xl md:text-2xl font-light text-shadow">Style that's as unique as you are.</p>
                 <div class="mt-8 text-lg md:text-xl font-bold animate-bounce text-shadow">↓ Scroll Down ↓</div>
@@ -117,42 +116,72 @@
         </section>
         
         <!-- Section 2: Products -->
-        <section id="products-showcase" class="scroll-section relative flex items-end justify-start p-6 sm:p-10 md:p-16 bg-cover bg-center">
-             <div class="bg-black/40 p-6 rounded-xl backdrop-blur-sm">
+        <section id="products-showcase" class="scroll-section relative flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between gap-8 p-6 sm:p-10 md:p-16 bg-cover bg-center" style="background-image: url('https://placehold.co/1920x1080/FFE8D6/333333?text=');">
+             <!-- Text Block -->
+             <div class="bg-black/40 p-6 rounded-xl backdrop-blur-sm z-10 order-2 md:order-1 text-center md:text-left">
                 <p class="text-lg font-semibold text-blue-300 tracking-widest uppercase text-shadow">Featured</p>
-                <!-- UPDATED: More responsive text sizes -->
                 <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold text-shadow mt-2">The Explorer Set</h2>
                 <p class="mt-2 max-w-lg text-lg text-shadow">Ready for adventure. This outfit features a durable canvas jacket and matching shorts.</p>
                 <a href="products.html" class="mt-4 inline-block bg-white text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition-all duration-300">Shop Now</a>
             </div>
+            <!-- Overlay Image -->
+            <div class="order-1 md:order-2">
+                <img src="https://placehold.co/400x550/E9D5A1/333333?text=Labubu+Model" 
+                     alt="Labubu doll wearing the Explorer Set" 
+                     class="max-h-[60vh] md:max-h-[75vh] w-auto [filter:drop-shadow(0_10px_15px_rgba(0,0,0,0.4))]" 
+                     onerror="this.onerror=null;this.src='https://placehold.co/400x550/333/FFF?text=Image+Not+Found';">
+            </div>
         </section>
         
         <!-- Section 3: Another Product -->
-        <section class="scroll-section relative flex items-start justify-end p-6 sm:p-10 md:p-16 bg-cover bg-center text-right">
-             <div class="text-right bg-black/40 p-6 rounded-xl backdrop-blur-sm">
+        <section class="scroll-section relative flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between gap-8 p-6 sm:p-10 md:p-16 bg-cover bg-center" style="background-image: url('https://placehold.co/1920x1080/B7D3F2/333333?text=');">
+            <!-- Overlay Image -->
+            <div class="order-1 md:order-1">
+                <img src="https://placehold.co/400x550/C8A2C8/333333?text=Labubu+Model" 
+                     alt="Labubu doll wearing The Dreamer Onesie" 
+                     class="max-h-[60vh] md:max-h-[75vh] w-auto [filter:drop-shadow(0_10px_15px_rgba(0,0,0,0.4))]" 
+                     onerror="this.onerror=null;this.src='https://placehold.co/400x550/333/FFF?text=Image+Not+Found';">
+            </div>
+             <!-- Text Block -->
+             <div class="bg-black/40 p-6 rounded-xl backdrop-blur-sm z-10 order-2 md:order-2 text-center md:text-right">
                 <p class="text-lg font-semibold text-blue-300 tracking-widest uppercase text-shadow">Featured</p>
-                <!-- UPDATED: More responsive text sizes -->
                 <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold text-shadow mt-2">The Dreamer Onesie</h2>
                 <p class="mt-2 ml-auto max-w-lg text-lg text-shadow">Cozy, cute, and ready for cuddles. Made from the softest cloud-like fleece.</p>
                  <a href="products.html" class="mt-4 inline-block bg-white text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition-all duration-300">Shop Now</a>
             </div>
         </section>
 
-        <!-- Section 4: About Us -->
-        <section id="about" class="scroll-section relative flex items-center justify-center bg-gray-800 p-4">
+        <!-- Section 4: NEW PRODUCT -->
+        <section class="scroll-section relative flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between gap-8 p-6 sm:p-10 md:p-16 bg-cover bg-center" style="background-image: url('https://placehold.co/1920x1080/4A4E69/FFFFFF?text=');">
+             <!-- Text Block -->
+             <div class="bg-black/40 p-6 rounded-xl backdrop-blur-sm z-10 order-2 md:order-1 text-center md:text-left">
+                <p class="text-lg font-semibold text-blue-300 tracking-widest uppercase text-shadow">Featured</p>
+                <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold text-shadow mt-2">The Stargazer Gown</h2>
+                <p class="mt-2 max-w-lg text-lg text-shadow">A celestial-themed gown perfect for nighttime adventures under the stars.</p>
+                <a href="products.html" class="mt-4 inline-block bg-white text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition-all duration-300">Shop Now</a>
+            </div>
+            <!-- Overlay Image -->
+            <div class="order-1 md:order-2">
+                <img src="https://placehold.co/400x550/9A8C98/FFFFFF?text=Labubu+Model" 
+                     alt="Labubu doll wearing The Stargazer Gown" 
+                     class="max-h-[60vh] md:max-h-[75vh] w-auto [filter:drop-shadow(0_10px_15px_rgba(0,0,0,0.4))]" 
+                     onerror="this.onerror=null;this.src='https://placehold.co/400x550/333/FFF?text=Image+Not+Found';">
+            </div>
+        </section>
+
+        <!-- Section 5: About Us -->
+        <section id="about" class="scroll-section relative flex items-center justify-center bg-gray-800 p-6 md:p-8">
              <div class="text-center max-w-3xl mx-auto px-4">
-                <!-- UPDATED: More responsive text sizes -->
-                <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold">About Our Closet</h2>
+                <h2 class="text-4xl md:text-5xl lg:text-7xl font-bold">About Our Closet</h2>
                 <p class="mt-6 text-lg md:text-xl text-gray-300 leading-relaxed">We believe every Labubu deserves to express their personality. Our clothes are designed with love, crafted with care, and made for creating memories.</p>
             </div>
         </section>
         
-        <!-- Section 5: Contact -->
-        <section id="contact" class="scroll-section relative flex flex-col items-center justify-center bg-gray-900 p-4">
+        <!-- Section 6: Contact -->
+        <section id="contact" class="scroll-section relative flex flex-col items-center justify-center bg-gray-900 p-4 md:p-8">
              <div class="text-center w-full max-w-2xl mx-auto">
-                <!-- UPDATED: More responsive text sizes -->
-                <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold">Get In Touch</h2>
-                <p class="mt-6 text-base sm:text-lg text-gray-400 leading-relaxed">Have a question? Drop us a line below!</p>
+                <h2 class="text-4xl md:text-5xl lg:text-7xl font-bold">Get In Touch</h2>
+                <p class="mt-6 text-lg text-gray-400 leading-relaxed">Have a question? Drop us a line below!</p>
                 <form action="https://formspree.io/f/YOUR_UNIQUE_FORM_ID" method="POST" class="mt-8 space-y-6 text-left">
                     <div>
                         <label for="name" class="font-medium">Your Name</label>
