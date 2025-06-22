@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products - LABUBU CLOSET</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Header with a link back home -->
+    <header class="p-6 text-center relative">
+         <a href="index.html" class="absolute top-6 left-6 inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full hover:bg-white/20 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            Home
+        </a>
+        <h1 class="text-4xl font-bold">Our Collection</h1>
+        <p class="text-gray-400 mt-2">Discover the latest styles for your Labubu</p>
+    </header>
+
+    <main class="max-w-screen-2xl mx-auto p-4 sm:p-8">
+        
+        <!-- 
+          Product Grid:
+          This grid is responsive. It shows 2 columns on small screens, 
+          3 on slightly larger ones, and up to 6 on very wide screens.
+        -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-8">
+            
+            <!-- Product Card 1 -->
+            <a href="#" class="group product-card bg-gray-800 rounded-lg overflow-hidden block">
+                <img src="https://placehold.co/400x400/FFE8D6/333333?text=Outfit+1" alt="The Explorer Set" class="w-full h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg truncate group-hover:text-blue-300 transition-colors">The Explorer Set</h3>
+                    <p class="text-gray-400 font-semibold mt-1">$29.99</p>
+                </div>
+            </a>
+
+            <!-- Product Card 2 -->
+            <a href="#" class="group product-card bg-gray-800 rounded-lg overflow-hidden block">
+                <img src="https://placehold.co/400x400/B7D3F2/333333?text=Outfit+2" alt="The Dreamer Onesie" class="w-full h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg truncate group-hover:text-blue-300 transition-colors">The Dreamer Onesie</h3>
+                    <p class="text-gray-400 font-semibold mt-1">$24.99</p>
+                </div>
+            </a>
+
+            <!-- Product Card 3 -->
+            <a href="#" class="group product-card bg-gray-800 rounded-lg overflow-hidden block">
+                <img src="https://placehold.co/400x400/FFC0CB/333333?text=Outfit+3" alt="Strawberry Sweetheart Dress" class="w-full h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg truncate group-hover:text-blue-300 transition-colors">Strawberry Sweetheart</h3>
+                    <p class="text-gray-400 font-semibold mt-1">$27.99</p>
+                </div>
+            </a>
+
+            <!-- Product Card 4 -->
+            <a href="#" class="group product-card bg-gray-800 rounded-lg overflow-hidden block">
+                <img src="https://placehold.co/400x400/A2D2FF/333333?text=Outfit+4" alt="Rainy Day Jumper" class="w-full h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg truncate group-hover:text-blue-300 transition-colors">Rainy Day Jumper</h3>
+                    <p class="text-gray-400 font-semibold mt-1">$32.99</p>
+                </div>
+            </a>
+
+            <!-- Product Card 5 -->
+            <a href="#" class="group product-card bg-gray-800 rounded-lg overflow-hidden block">
+                <img src="https://placehold.co/400x400/CDB4DB/333333?text=Outfit+5" alt="Galaxy Pajamas" class="w-full h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg truncate group-hover:text-blue-300 transition-colors">Galaxy Pajamas</h3>
+                    <p class="text-gray-400 font-semibold mt-1">$25.99</p>
+                </div>
+            </a>
+
+            <!-- Product Card 6 -->
+            <a href="#" class="group product-card bg-gray-800 rounded-lg overflow-hidden block">
+                <img src="https://placehold.co/400x400/F4A261/333333?text=Outfit+6" alt="Sunset Hoodie" class="w-full h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg truncate group-hover:text-blue-300 transition-colors">Sunset Hoodie</h3>
+                    <p class="text-gray-400 font-semibold mt-1">$28.99</p>
+                </div>
+            </a>
+            
+            <!-- Product Card 7 -->
+            <a href="#" class="group product-card bg-gray-800 rounded-lg overflow-hidden block">
+                <img src="https://placehold.co/400x400/2A9D8F/eeeeee?text=Outfit+7" alt="Forest Ranger Vest" class="w-full h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg truncate group-hover:text-blue-300 transition-colors">Forest Ranger Vest</h3>
+                    <p class="text-gray-400 font-semibold mt-1">$22.99</p>
+                </div>
+            </a>
+            
+            <!-- Product Card 8 -->
+            <a href="#" class="group product-card bg-gray-800 rounded-lg overflow-hidden block">
+                <img src="https://placehold.co/400x400/E9C46A/333333?text=Outfit+8" alt="Sunflower Overalls" class="w-full h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg truncate group-hover:text-blue-300 transition-colors">Sunflower Overalls</h3>
+                    <p class="text-gray-400 font-semibold mt-1">$31.99</p>
+                </div>
+            </a>
+            
+            <!-- Product Card 9 -->
+            <a href="#" class="group product-card bg-gray-800 rounded-lg overflow-hidden block">
+                <img src="https://placehold.co/400x400/E76F51/eeeeee?text=Outfit+9" alt="Little Chef Apron" class="w-full h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg truncate group-hover:text-blue-300 transition-colors">Little Chef Apron</h3>
+                    <p class="text-gray-400 font-semibold mt-1">$19.99</p>
+                </div>
+            </a>
+
+            <!-- Product Card 10 -->
+            <a href="#" class="group product-card bg-gray-800 rounded-lg overflow-hidden block">
+                <img src="https://placehold.co/400x400/8ECAE6/333333?text=Outfit+10" alt="Ocean Breeze Shirt" class="w-full h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg truncate group-hover:text-blue-300 transition-colors">Ocean Breeze Shirt</h3>
+                    <p class="text-gray-400 font-semibold mt-1">$26.99</p>
+                </div>
+            </a>
+
+            <!-- Product Card 11 -->
+            <a href="#" class="group product-card bg-gray-800 rounded-lg overflow-hidden block">
+                <img src="https://placehold.co/400x400/219EBC/eeeeee?text=Outfit+11" alt="Denim Jacket" class="w-full h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg truncate group-hover:text-blue-300 transition-colors">Classic Denim Jacket</h3>
+                    <p class="text-gray-400 font-semibold mt-1">$34.99</p>
+                </div>
+            </a>
+
+            <!-- Product Card 12 -->
+            <a href="#" class="group product-card bg-gray-800 rounded-lg overflow-hidden block">
+                <img src="https://placehold.co/400x400/FFB703/333333?text=Outfit+12" alt="Bumblebee Costume" class="w-full h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg truncate group-hover:text-blue-300 transition-colors">Bumblebee Costume</h3>
+                    <p class="text-gray-400 font-semibold mt-1">$29.99</p>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <footer class="text-center p-8 text-gray-500 mt-8">
+        <p>&copy; 2024 LABUBU CLOSET. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
