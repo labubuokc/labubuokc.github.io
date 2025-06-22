@@ -17,17 +17,17 @@
         /* Custom styles for the core functionality and aesthetic */
         body {
             font-family: 'Inter', sans-serif;
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
         }
 
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        body::-webkit-scrollbar {
-            display: none;
+        /* Hide scrollbar on main page, but allow it in the cart */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
         }
 
-        /* This is the magic for the seamless scrolling effect.
-           The container snaps to the start of each child section. */
         .scroll-container {
             scroll-snap-type: y mandatory;
             overflow-y: scroll;
@@ -41,102 +41,115 @@
             height: 100vh;
         }
         
-        /* A subtle text shadow to make text pop against any background */
         .text-shadow {
             text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
         }
 
-        /* Menu transition */
-        #menu-panel {
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        #menu-panel, #cart-panel {
+            transition: transform 0.3s ease-in-out;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white overflow-hidden">
+<body class="bg-gray-900 text-white overflow-hidden no-scrollbar">
 
-    <!-- 
-      The Dropdown Menu Navigation.
-      It is fixed to the top left and has a high z-index to stay on top.
-    -->
-    <header class="fixed top-0 left-0 p-4 sm:p-6 z-50">
+    <!-- Header with Menu and Cart Icons -->
+    <header class="fixed top-0 left-0 p-4 sm:p-6 z-50 w-full flex justify-between items-center">
+        <!-- Left side: Menu -->
         <div class="relative">
-            <!-- Menu Button (Hamburger Icon) -->
             <button id="menu-button" class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white focus:outline-none focus:ring-2 focus:ring-white/50 transition-transform duration-200 hover:scale-110">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                </svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
-
-            <!-- Menu Panel -->
             <nav id="menu-panel" class="hidden absolute left-0 top-16 w-64 bg-black/80 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden">
                 <ul class="p-4 space-y-2">
-                    <li><a href="#products" class="block py-3 px-4 rounded-lg hover:bg-white/10 transition-colors duration-200 text-lg font-medium">Products</a></li>
+                    <li><a href="products.html" class="block py-3 px-4 rounded-lg hover:bg-white/10 transition-colors duration-200 text-lg font-medium">Products</a></li>
                     <li><a href="#about" class="block py-3 px-4 rounded-lg hover:bg-white/10 transition-colors duration-200 text-lg font-medium">About Us</a></li>
-                    <li><a href="#payment" class="block py-3 px-4 rounded-lg hover:bg-white/10 transition-colors duration-200 text-lg font-medium">Payment & Shipping</a></li>
+                    <li><a href="payment.html" class="block py-3 px-4 rounded-lg hover:bg-white/10 transition-colors duration-200 text-lg font-medium">Payment & Shipping</a></li>
                     <li><a href="#contact" class="block py-3 px-4 rounded-lg hover:bg-white/10 transition-colors duration-200 text-lg font-medium">Contact</a></li>
                 </ul>
             </nav>
         </div>
+        <!-- Right side: Cart -->
+        <div class="relative">
+            <button id="cart-button" class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white focus:outline-none focus:ring-2 focus:ring-white/50 transition-transform duration-200 hover:scale-110">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                <span id="cart-count" class="absolute -top-1 -right-1 bg-blue-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center border-2 border-gray-900">0</span>
+            </button>
+        </div>
     </header>
 
-    <!-- 
-      This is the main container for our scrollable sections.
-      The custom CSS class `.scroll-container` enables the snap-scrolling.
-    -->
-    <main class="scroll-container">
+    <!-- Shopping Cart Panel -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/60 z-50 hidden"></div>
+    <div id="cart-panel" class="fixed top-0 right-0 h-full w-full max-w-md bg-gray-900 shadow-2xl z-50 transform translate-x-full flex flex-col">
+        <!-- Cart Header -->
+        <div class="flex justify-between items-center p-6 border-b border-gray-700">
+            <h2 class="text-2xl font-bold">Your Cart</h2>
+            <button id="close-cart-button" class="p-2 rounded-full hover:bg-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+        <!-- Cart Items -->
+        <div id="cart-items-container" class="flex-grow p-4 overflow-y-auto">
+            <!-- Items will be injected here by JavaScript -->
+            <!-- Example:
+            <div class="flex items-center gap-4 py-4 border-b border-gray-800">
+                <img src="https://placehold.co/80x80" class="w-20 h-20 rounded-md object-cover">
+                <div class="flex-grow">
+                    <h3 class="font-bold">The Explorer Set</h3>
+                    <p class="text-gray-400">$29.99</p>
+                </div>
+                <div>...quantity...</div>
+                <button>X</button>
+            </div>
+            -->
+        </div>
+        <!-- Cart Footer -->
+        <div class="p-6 border-t border-gray-700">
+            <div class="flex justify-between items-center text-xl font-bold">
+                <span>Subtotal</span>
+                <span id="cart-subtotal">$0.00</span>
+            </div>
+            <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-lg mt-4 transition-colors">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
 
-        <!-- Section 1: Hero Image -->
+
+    <!-- Main Page Content -->
+    <main class="scroll-container no-scrollbar">
+        <!-- Sections (Hero, Products, About, Contact) remain the same -->
         <section id="hero" class="scroll-section relative flex items-center justify-center bg-cover bg-center" style="background-image: url('https://placehold.co/1920x1080/D6E4FF/333333?text=LABUBU+CLOSET');">
             <div class="text-center text-white">
                 <h1 class="text-5xl md:text-8xl font-black uppercase text-shadow">Labubu Closet</h1>
                 <p class="mt-4 text-xl md:text-2xl font-light text-shadow">Style that's as unique as you are.</p>
-                <div class="mt-8 text-xl font-bold animate-bounce text-shadow">
-                    ↓ Scroll Down ↓
-                </div>
+                <div class="mt-8 text-xl font-bold animate-bounce text-shadow">↓ Scroll Down ↓</div>
             </div>
         </section>
-
-        <!-- Section 2: Product Showcase -->
-        <section id="products" class="scroll-section relative flex items-end justify-start p-8 md:p-16 bg-cover bg-center" style="background-image: url('https://placehold.co/1920x1080/FFE8D6/333333?text=The+Explorer+Set');">
+        <section id="products-showcase" class="scroll-section relative flex items-end justify-start p-8 md:p-16 bg-cover bg-center" style="background-image: url('https://placehold.co/1920x1080/FFE8D6/333333?text=The+Explorer+Set');">
              <div class="bg-black/40 p-6 rounded-xl backdrop-blur-sm">
                 <h2 class="text-4xl md:text-6xl font-bold text-shadow">The Explorer Set</h2>
-                <p class="mt-2 max-w-lg text-lg text-shadow">Ready for adventure. This outfit features a durable canvas jacket and matching shorts, perfect for any journey.</p>
-                <a href="#" class="mt-4 inline-block bg-white text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition-all duration-300">Shop Now</a>
+                <p class="mt-2 max-w-lg text-lg text-shadow">Ready for adventure. This outfit features a durable canvas jacket and matching shorts.</p>
+                <a href="products.html" class="mt-4 inline-block bg-white text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition-all duration-300">Shop Now</a>
             </div>
         </section>
-
-        <!-- Section 3: Another Product -->
         <section class="scroll-section relative flex items-start justify-end p-8 md:p-16 bg-cover bg-center" style="background-image: url('https://placehold.co/1920x1080/B7D3F2/333333?text=The+Dreamer+Onesie');">
              <div class="text-right bg-black/40 p-6 rounded-xl backdrop-blur-sm">
                 <h2 class="text-4xl md:text-6xl font-bold text-shadow">The Dreamer Onesie</h2>
                 <p class="mt-2 ml-auto max-w-lg text-lg text-shadow">Cozy, cute, and ready for cuddles. Made from the softest cloud-like fleece.</p>
-                 <a href="#" class="mt-4 inline-block bg-white text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition-all duration-300">Shop Now</a>
+                 <a href="products.html" class="mt-4 inline-block bg-white text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition-all duration-300">Shop Now</a>
             </div>
         </section>
-        
-        <!-- Section 4: About Us -->
         <section id="about" class="scroll-section relative flex items-center justify-center bg-gray-800">
              <div class="text-center max-w-3xl mx-auto px-4">
                 <h2 class="text-5xl md:text-7xl font-bold">About Our Closet</h2>
-                <p class="mt-6 text-xl text-gray-300 leading-relaxed">We believe every Labubu deserves to express their personality. Our clothes are designed with love, crafted with care, and made for creating memories. Each piece is a limited run, ensuring your Labubu stands out from the crowd.</p>
+                <p class="mt-6 text-xl text-gray-300 leading-relaxed">We believe every Labubu deserves to express their personality. Our clothes are designed with love, crafted with care, and made for creating memories.</p>
             </div>
         </section>
-        
-        <!-- Section 5: Contact -->
         <section id="contact" class="scroll-section relative flex flex-col items-center justify-center bg-gray-900 p-4">
              <div class="text-center w-full max-w-2xl mx-auto">
                 <h2 class="text-5xl md:text-7xl font-bold">Get In Touch</h2>
-                <p class="mt-6 text-lg text-gray-400 leading-relaxed">Have a question, a suggestion, or a special request? We'd love to hear from you. Drop us a line below!</p>
-                
-                <!-- 
-                  FORM INTEGRATION:
-                  To make this form send emails, follow these steps:
-                  1. Go to https://formspree.io/ and sign up for a free account.
-                  2. Create a "New Form" and link it to your email: labubu@gmail.com.
-                  3. Formspree will give you a unique URL with an ID, something like "https://formspree.io/f/xxxxxxxx".
-                  4. Replace the placeholder URL in the 'action' attribute below with the one Formspree gives you.
-                -->
-                <form action="https://formspree.io/f/xqabyzoj" method="POST" class="mt-8 space-y-6 text-left">
+                <p class="mt-6 text-lg text-gray-400 leading-relaxed">Have a question? Drop us a line below!</p>
+                <form action="https://formspree.io/f/YOUR_UNIQUE_FORM_ID" method="POST" class="mt-8 space-y-6 text-left">
                     <div>
                         <label for="name" class="font-medium">Your Name</label>
                         <input type="text" id="name" name="name" class="mt-2 w-full p-4 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" required>
@@ -155,34 +168,122 @@
                 </form>
             </div>
         </section>
-
     </main>
 
-    <!-- Simple JavaScript to toggle the menu visibility -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- MENU SCRIPT ---
             const menuButton = document.getElementById('menu-button');
             const menuPanel = document.getElementById('menu-panel');
-
-            // Toggle menu on button click
-            menuButton.addEventListener('click', (event) => {
-                event.stopPropagation(); // Prevents the click from closing the menu immediately
-                menuPanel.classList.toggle('hidden');
+            menuButton.addEventListener('click', (e) => { e.stopPropagation(); menuPanel.classList.toggle('hidden'); });
+            document.addEventListener('click', (e) => {
+                if (!menuPanel.contains(e.target) && !menuButton.contains(e.target)) menuPanel.classList.add('hidden');
             });
-
-            // Close menu if clicking outside of it
-            document.addEventListener('click', (event) => {
-                if (!menuPanel.contains(event.target) && !menuButton.contains(event.target)) {
-                    menuPanel.classList.add('hidden');
-                }
-            });
-            
-            // Close menu when a link is clicked
             menuPanel.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    menuPanel.classList.add('hidden');
-                });
+                link.addEventListener('click', () => { if (link.getAttribute('href').startsWith('#')) menuPanel.classList.add('hidden'); });
             });
+
+            // --- CART SCRIPT ---
+            const cartButton = document.getElementById('cart-button');
+            const closeCartButton = document.getElementById('close-cart-button');
+            const cartOverlay = document.getElementById('cart-overlay');
+            const cartPanel = document.getElementById('cart-panel');
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const cartCountEl = document.getElementById('cart-count');
+            const cartSubtotalEl = document.getElementById('cart-subtotal');
+
+            function getCart() {
+                return JSON.parse(localStorage.getItem('labubuCart')) || [];
+            }
+
+            function saveCart(cart) {
+                localStorage.setItem('labubuCart', JSON.stringify(cart));
+                renderCart();
+            }
+
+            function openCart() {
+                cartOverlay.classList.remove('hidden');
+                cartPanel.classList.remove('translate-x-full');
+            }
+
+            function closeCart() {
+                cartOverlay.classList.add('hidden');
+                cartPanel.classList.add('translate-x-full');
+            }
+            
+            function renderCart() {
+                const cart = getCart();
+                cartItemsContainer.innerHTML = ''; // Clear old items
+
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<p class="text-gray-400 text-center py-10">Your cart is empty.</p>';
+                } else {
+                    cart.forEach(item => {
+                        const itemEl = document.createElement('div');
+                        itemEl.className = 'flex items-center gap-4 py-4 border-b border-gray-800';
+                        itemEl.innerHTML = `
+                            <img src="${item.image}" alt="${item.name}" class="w-20 h-20 rounded-md object-cover">
+                            <div class="flex-grow">
+                                <h3 class="font-bold">${item.name}</h3>
+                                <p class="text-gray-400">$${item.price.toFixed(2)}</p>
+                                <div class="flex items-center gap-3 mt-2">
+                                    <button class="quantity-change text-lg font-bold" data-id="${item.id}" data-change="-1">-</button>
+                                    <span>${item.quantity}</span>
+                                    <button class="quantity-change text-lg font-bold" data-id="${item.id}" data-change="1">+</button>
+                                </div>
+                            </div>
+                            <button class="remove-item text-red-400 hover:text-red-300 text-2xl font-bold" data-id="${item.id}">&times;</button>
+                        `;
+                        cartItemsContainer.appendChild(itemEl);
+                    });
+                }
+
+                // Update count and subtotal
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                cartCountEl.textContent = totalItems;
+                cartSubtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+            }
+            
+            cartItemsContainer.addEventListener('click', (e) => {
+                const cart = getCart();
+                // Handle quantity change
+                if (e.target.classList.contains('quantity-change')) {
+                    const itemId = e.target.dataset.id;
+                    const change = parseInt(e.target.dataset.change, 10);
+                    const item = cart.find(i => i.id === itemId);
+                    if (item) {
+                        item.quantity += change;
+                        if (item.quantity <= 0) {
+                            // Remove item if quantity is 0 or less
+                            const itemIndex = cart.findIndex(i => i.id === itemId);
+                            cart.splice(itemIndex, 1);
+                        }
+                    }
+                }
+                // Handle item removal
+                if (e.target.classList.contains('remove-item')) {
+                     const itemId = e.target.dataset.id;
+                     const itemIndex = cart.findIndex(i => i.id === itemId);
+                     if (itemIndex > -1) {
+                         cart.splice(itemIndex, 1);
+                     }
+                }
+                saveCart(cart);
+            });
+
+            // Event Listeners for cart UI
+            cartButton.addEventListener('click', openCart);
+            closeCartButton.addEventListener('click', closeCart);
+            cartOverlay.addEventListener('click', closeCart);
+
+            // Initial Render
+            renderCart();
+            
+            // Open cart if URL hash is #cart
+            if(window.location.hash === '#cart') {
+                openCart();
+            }
         });
     </script>
 
