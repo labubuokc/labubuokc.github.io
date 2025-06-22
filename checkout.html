@@ -129,7 +129,10 @@
                 orderSummaryContainer.innerHTML = ''; // Clear old items
 
                 if (cart.length === 0) {
-                    orderSummaryContainer.innerHTML = '<p class="text-gray-400">No items in your cart.</p>';
+                    orderSummaryContainer.innerHTML = '<p class="text-gray-400">No items in your cart. <a href="products.html" class="text-blue-400 hover:underline">Continue shopping</a>.</p>';
+                     subtotalEl.textContent = "$0.00";
+                    shippingEl.textContent = "$0.00";
+                    totalEl.textContent = "$0.00";
                     return;
                 }
 
