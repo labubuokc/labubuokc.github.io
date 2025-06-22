@@ -90,17 +90,6 @@
         <!-- Cart Items -->
         <div id="cart-items-container" class="flex-grow p-4 overflow-y-auto">
             <!-- Items will be injected here by JavaScript -->
-            <!-- Example:
-            <div class="flex items-center gap-4 py-4 border-b border-gray-800">
-                <img src="https://placehold.co/80x80" class="w-20 h-20 rounded-md object-cover">
-                <div class="flex-grow">
-                    <h3 class="font-bold">The Explorer Set</h3>
-                    <p class="text-gray-400">$29.99</p>
-                </div>
-                <div>...quantity...</div>
-                <button>X</button>
-            </div>
-            -->
         </div>
         <!-- Cart Footer -->
         <div class="p-6 border-t border-gray-700">
@@ -108,9 +97,10 @@
                 <span>Subtotal</span>
                 <span id="cart-subtotal">$0.00</span>
             </div>
-            <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-lg mt-4 transition-colors">
+            <!-- This is a link to the checkout page -->
+            <a href="checkout.html" class="block text-center w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-lg mt-4 transition-colors">
                 Proceed to Checkout
-            </button>
+            </a>
         </div>
     </div>
 
