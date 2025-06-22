@@ -54,17 +54,18 @@
 </head>
 <body class="bg-gray-900 text-white">
 
-
     <!-- Container for sparkle elements -->
     <div id="sparkle-container" class="fixed inset-0 pointer-events-none z-50 overflow-hidden"></div>
+
     <!-- Header with a link back home and cart icon -->
     <header class="p-4 sm:p-6 text-center relative flex items-center justify-between">
-         <a href="index.html" class="absolute top-6 left-6 inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full hover:bg-white/20 transition-colors">
+         <!-- UPDATED: Home button now has a proper home icon -->
+         <a href="index.html" class="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full hover:bg-white/20 transition-colors text-sm sm:text-base">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
             </svg>
             Home
-        </a>  
+        </a>
         <div class="absolute left-1/2 -translate-x-1/2 w-full px-20">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold truncate">Our Collection</h1>
             <p class="text-gray-400 mt-1 sm:mt-2 text-sm sm:text-base">Discover the latest styles</p>
