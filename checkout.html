@@ -74,12 +74,6 @@
                 <h2 class="text-2xl font-bold border-b-2 border-gray-700 pb-2 mb-6">Payment Details</h2>
                 <p class="text-gray-400 mb-4">Your payment is processed securely by Stripe. We do not store your card details.</p>
                 
-                <!-- 
-                  *** STRIPE INTEGRATION POINT ***
-                  This is where the secure payment form from Stripe will be mounted.
-                  You will need to use Stripe.js in your script to create and manage this element.
-                  The div below acts as a container for it.
-                -->
                 <div id="card-element" class="bg-gray-800 p-4 rounded-md border border-gray-700">
                   <!-- A Stripe Element will be inserted here. -->
                 </div>
@@ -115,29 +109,44 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            console.log('Checkout page script loaded.'); // Debug: Confirm script runs
+
             const orderSummaryContainer = document.getElementById('order-summary-container');
             const subtotalEl = document.getElementById('summary-subtotal');
             const shippingEl = document.getElementById('summary-shipping');
             const totalEl = document.getElementById('summary-total');
 
             function getCart() {
-                return JSON.parse(localStorage.getItem('labubuCart')) || [];
+                const cartData = localStorage.getItem('labubuCart');
+                console.log('Raw cart data from localStorage:', cartData); // Debug: Show raw data
+                try {
+                    return JSON.parse(cartData) || [];
+                } catch (e) {
+                    console.error("Error parsing cart data from localStorage", e);
+                    return [];
+                }
             }
 
             function renderOrderSummary() {
+                console.log('Rendering order summary...'); // Debug: Confirm function runs
                 const cart = getCart();
+                console.log('Parsed cart:', cart); // Debug: Show parsed cart array
+
                 orderSummaryContainer.innerHTML = ''; // Clear old items
 
-                if (cart.length === 0) {
+                if (!cart || cart.length === 0) {
+                    console.log('Cart is empty. Displaying empty message.'); // Debug: Confirm empty case
                     orderSummaryContainer.innerHTML = '<p class="text-gray-400">No items in your cart. <a href="products.html" class="text-blue-400 hover:underline">Continue shopping</a>.</p>';
-                     subtotalEl.textContent = "$0.00";
+                    subtotalEl.textContent = "$0.00";
                     shippingEl.textContent = "$0.00";
                     totalEl.textContent = "$0.00";
                     return;
                 }
 
                 let subtotal = 0;
-                cart.forEach(item => {
+                console.log('Looping through cart items...'); // Debug: Confirm loop starts
+                cart.forEach((item, index) => {
+                    console.log(`Item ${index}:`, item); // Debug: Log each item
                     subtotal += item.price * item.quantity;
                     const itemEl = document.createElement('div');
                     itemEl.className = 'flex justify-between items-center';
@@ -153,9 +162,12 @@
                     `;
                     orderSummaryContainer.appendChild(itemEl);
                 });
+                console.log('Finished looping through items.'); // Debug: Confirm loop ends
                 
                 const shippingCost = 5.00; // Example flat rate
                 const total = subtotal + shippingCost;
+                
+                console.log(`Updating totals: Subtotal=${subtotal}, Total=${total}`); // Debug: Log final calculation
                 
                 subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
                 shippingEl.textContent = `$${shippingCost.toFixed(2)}`;
@@ -164,39 +176,6 @@
 
             renderOrderSummary();
         });
-
-        /*
-        *** STRIPE JAVASCRIPT LOGIC WOULD GO HERE ***
-
-        // 1. Include Stripe.js script tag in your <head>
-        // <script src="https://js.stripe.com/v3/"></script>
-
-        // 2. Initialize Stripe with your public key
-        // const stripe = Stripe('YOUR_STRIPE_PUBLIC_KEY');
-
-        // 3. Create and mount the card element
-        // const elements = stripe.elements();
-        // const cardElement = elements.create('card');
-        // cardElement.mount('#card-element');
-
-        // 4. Handle form submission
-        // const payButton = document.getElementById('pay-button');
-        // payButton.addEventListener('click', async () => {
-        //   // Create a payment intent on your server and get the client secret
-        //   const { clientSecret } = await fetch('/create-payment-intent', { ... }).then(r => r.json());
-        //
-        //   // Confirm the payment with Stripe
-        //   const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-        //     payment_method: { card: cardElement }
-        //   });
-        //
-        //   if (error) {
-        //     // Show error to customer
-        //   } else {
-        //     // Payment succeeded!
-        //   }
-        // });
-        */
     </script>
 </body>
 </html>
