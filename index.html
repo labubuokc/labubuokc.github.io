@@ -17,28 +17,7 @@
         /* Custom styles for the core functionality and aesthetic */
         body {
             font-family: 'Inter', sans-serif;
-        }
-
-        /* Hide scrollbar on main page, but allow it in the cart */
-        .no-scrollbar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
-        }
-        .no-scrollbar::-webkit-scrollbar {
-            display: none; /* Chrome, Safari and Opera */
-        }
-
-        .scroll-container {
-            scroll-snap-type: y mandatory;
-            overflow-y: scroll;
-            height: 100vh;
-        }
-
-        .scroll-section {
-            scroll-snap-align: start;
-            flex-shrink: 0;
-            width: 100%;
-            height: 100vh;
+            background-color: #111827; /* bg-gray-900 */
         }
         
         .text-shadow {
@@ -48,9 +27,48 @@
         #menu-panel, #cart-panel {
             transition: transform 0.3s ease-in-out;
         }
+
+        /* Styles for hero and featured product sections to take full height */
+        .full-screen-section {
+            height: 100vh;
+        }
+        
+        /* Product Card hover effect */
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        /* Sparkle Effect Styles */
+        .sparkle {
+            position: absolute;
+            background-color: #ffd700; /* Gold color */
+            border-radius: 50%;
+            animation: fall 2s linear forwards;
+            box-shadow: 0 0 8px #ffd700, 0 0 12px #ffefab;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(var(--fall-x, 0px)) rotate(720deg);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-900 text-white overflow-hidden no-scrollbar">
+<body class="bg-gray-900 text-white">
+    
+    <!-- Container for sparkle elements -->
+    <div id="sparkle-container" class="fixed inset-0 pointer-events-none z-[100] overflow-hidden"></div>
 
     <!-- Header with Menu and Cart Icons -->
     <header class="fixed top-0 left-0 p-4 sm:p-6 z-50 w-full flex justify-between items-center">
@@ -63,7 +81,7 @@
                 </button>
                 <nav id="menu-panel" class="hidden absolute left-0 top-16 w-64 bg-black/80 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden">
                     <ul class="p-4 space-y-2">
-                        <li><a href="products.html" class="block py-3 px-4 rounded-lg hover:bg-white/10 transition-colors duration-200 text-lg font-medium">Products</a></li>
+                        <li><a href="#products-grid-section" class="block py-3 px-4 rounded-lg hover:bg-white/10 transition-colors duration-200 text-lg font-medium">Products</a></li>
                         <li><a href="#about" class="block py-3 px-4 rounded-lg hover:bg-white/10 transition-colors duration-200 text-lg font-medium">About Us</a></li>
                         <li><a href="payment.html" class="block py-3 px-4 rounded-lg hover:bg-white/10 transition-colors duration-200 text-lg font-medium">Payment & Shipping</a></li>
                         <li><a href="#contact" class="block py-3 px-4 rounded-lg hover:bg-white/10 transition-colors duration-200 text-lg font-medium">Contact</a></li>
@@ -121,26 +139,25 @@
 
 
     <!-- Main Page Content -->
-    <main class="scroll-container no-scrollbar">
+    <main>
         <!-- Section 1: Hero -->
-        <section id="hero" class="scroll-section relative flex items-center justify-center bg-cover bg-center p-4">
-            <div class="text-center text-white">
+        <section id="hero" class="full-screen-section relative flex items-center justify-center bg-cover bg-center p-4">
+            <div class="absolute inset-0 bg-black/30"></div>
+            <div class="relative text-center text-white">
                 <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase text-shadow">Labubu Closet</h1>
                 <p class="mt-4 text-lg sm:text-xl md:text-2xl font-light text-shadow">Style that's as unique as you are.</p>
                 <div class="mt-8 text-lg md:text-xl font-bold animate-bounce text-shadow">↓ Scroll Down ↓</div>
             </div>
         </section>
         
-        <!-- Section 2: Products -->
-        <section id="products-showcase" class="scroll-section relative flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between gap-8 p-6 sm:p-10 md:p-16 bg-cover bg-center" style="background-image: url('https://placehold.co/1920x1080/FFE8D6/333333?text=');">
-             <!-- Text Block -->
-             <div class="bg-black/40 p-6 rounded-xl backdrop-blur-sm z-10 order-2 md:order-1 text-center md:text-left">
+        <!-- Section 2: Featured Product -->
+        <section id="products-showcase" class="full-screen-section relative flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between gap-8 p-6 sm:p-10 md:p-16 bg-gray-800">
+             <div class="bg-black/20 p-6 rounded-xl backdrop-blur-sm z-10 order-2 md:order-1 text-center md:text-left">
                 <p class="text-lg font-semibold text-blue-300 tracking-widest uppercase text-shadow">Featured</p>
                 <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold text-shadow mt-2">The Explorer Set</h2>
                 <p class="mt-2 max-w-lg text-lg text-shadow">Ready for adventure. This outfit features a durable canvas jacket and matching shorts.</p>
-                <a href="products.html" class="mt-4 inline-block bg-white text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition-all duration-300">Shop Now</a>
+                <a href="#products-grid-section" class="mt-4 inline-block bg-white text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition-all duration-300">Shop The Collection</a>
             </div>
-            <!-- Overlay Image -->
             <div class="order-1 md:order-2">
                 <img src="https://placehold.co/400x550/E9D5A1/333333?text=Labubu+Model" 
                      alt="Labubu doll wearing the Explorer Set" 
@@ -149,52 +166,43 @@
             </div>
         </section>
         
-        <!-- Section 3: Another Product -->
-        <section class="scroll-section relative flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between gap-8 p-6 sm:p-10 md:p-16 bg-cover bg-center" style="background-image: url('https://placehold.co/1920x1080/B7D3F2/333333?text=');">
-            <!-- Overlay Image -->
+        <!-- Section 3: Another Featured Product -->
+        <section class="full-screen-section relative flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between gap-8 p-6 sm:p-10 md:p-16 bg-gray-800">
             <div class="order-1 md:order-1">
                 <img src="https://placehold.co/400x550/C8A2C8/333333?text=Labubu+Model" 
                      alt="Labubu doll wearing The Dreamer Onesie" 
                      class="max-h-[60vh] md:max-h-[75vh] w-auto [filter:drop-shadow(0_10px_15px_rgba(0,0,0,0.4))]" 
                      onerror="this.onerror=null;this.src='https://placehold.co/400x550/333/FFF?text=Image+Not+Found';">
             </div>
-             <!-- Text Block -->
-             <div class="bg-black/40 p-6 rounded-xl backdrop-blur-sm z-10 order-2 md:order-2 text-center md:text-right">
+             <div class="bg-black/20 p-6 rounded-xl backdrop-blur-sm z-10 order-2 md:order-2 text-center md:text-right">
                 <p class="text-lg font-semibold text-blue-300 tracking-widest uppercase text-shadow">Featured</p>
                 <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold text-shadow mt-2">The Dreamer Onesie</h2>
                 <p class="mt-2 ml-auto max-w-lg text-lg text-shadow">Cozy, cute, and ready for cuddles. Made from the softest cloud-like fleece.</p>
-                 <a href="products.html" class="mt-4 inline-block bg-white text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition-all duration-300">Shop Now</a>
+                 <a href="#products-grid-section" class="mt-4 inline-block bg-white text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition-all duration-300">Shop The Collection</a>
             </div>
         </section>
 
-        <!-- Section 4: NEW PRODUCT -->
-        <section class="scroll-section relative flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between gap-8 p-6 sm:p-10 md:p-16 bg-cover bg-center" style="background-image: url('https://placehold.co/1920x1080/4A4E69/FFFFFF?text=');">
-             <!-- Text Block -->
-             <div class="bg-black/40 p-6 rounded-xl backdrop-blur-sm z-10 order-2 md:order-1 text-center md:text-left">
-                <p class="text-lg font-semibold text-blue-300 tracking-widest uppercase text-shadow">Featured</p>
-                <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold text-shadow mt-2">The Stargazer Gown</h2>
-                <p class="mt-2 max-w-lg text-lg text-shadow">A celestial-themed gown perfect for nighttime adventures under the stars.</p>
-                <a href="products.html" class="mt-4 inline-block bg-white text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition-all duration-300">Shop Now</a>
+        <!-- Section 4: All Products -->
+        <section id="products-grid-section" class="py-20 px-4 sm:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl sm:text-5xl font-bold">Our Collection</h2>
+                <p class="text-gray-400 mt-2">Discover the latest styles for your Labubu</p>
             </div>
-            <!-- Overlay Image -->
-            <div class="order-1 md:order-2">
-                <img src="https://placehold.co/400x550/9A8C98/FFFFFF?text=Labubu+Model" 
-                     alt="Labubu doll wearing The Stargazer Gown" 
-                     class="max-h-[60vh] md:max-h-[75vh] w-auto [filter:drop-shadow(0_10px_15px_rgba(0,0,0,0.4))]" 
-                     onerror="this.onerror=null;this.src='https://placehold.co/400x550/333/FFF?text=Image+Not+Found';">
+            <div id="product-grid" class="max-w-screen-2xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
+                <!-- Product Cards will be dynamically generated by JS -->
             </div>
         </section>
 
         <!-- Section 5: About Us -->
-        <section id="about" class="scroll-section relative flex items-center justify-center bg-gray-800 p-6 md:p-8">
-             <div class="text-center max-w-3xl mx-auto px-4">
+        <section id="about" class="py-20 px-4 sm:px-8 bg-gray-800">
+             <div class="text-center max-w-3xl mx-auto">
                 <h2 class="text-4xl md:text-5xl lg:text-7xl font-bold">About Our Closet</h2>
                 <p class="mt-6 text-lg md:text-xl text-gray-300 leading-relaxed">We believe every Labubu deserves to express their personality. Our clothes are designed with love, crafted with care, and made for creating memories.</p>
             </div>
         </section>
         
         <!-- Section 6: Contact -->
-        <section id="contact" class="scroll-section relative flex flex-col items-center justify-center bg-gray-900 p-4 md:p-8">
+        <section id="contact" class="py-20 px-4 sm:px-8">
              <div class="text-center w-full max-w-2xl mx-auto">
                 <h2 class="text-4xl md:text-5xl lg:text-7xl font-bold">Get In Touch</h2>
                 <p class="mt-6 text-lg text-gray-400 leading-relaxed">Have a question? Drop us a line below!</p>
@@ -219,8 +227,49 @@
         </section>
     </main>
 
+    <footer class="text-center p-8 text-gray-500 mt-8 bg-gray-900">
+        <p>&copy; 2024 LABUBU CLOSET. All Rights Reserved.</p>
+    </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+
+            const products = [
+                { id: 'prod1', name: 'The Explorer Set', price: 29.99, image: 'https://placehold.co/400x400/FFE8D6/333333?text=Outfit+1' },
+                { id: 'prod2', name: 'The Dreamer Onesie', price: 24.99, image: 'https://placehold.co/400x400/B7D3F2/333333?text=Outfit+2' },
+                { id: 'prod3', name: 'Strawberry Sweetheart', price: 27.99, image: 'https://placehold.co/400x400/FFC0CB/333333?text=Outfit+3' },
+                { id: 'prod4', name: 'Rainy Day Jumper', price: 32.99, image: 'https://placehold.co/400x400/A2D2FF/333333?text=Outfit+4' },
+                { id: 'prod5', name: 'Galaxy Pajamas', price: 25.99, image: 'https://placehold.co/400x400/CDB4DB/333333?text=Outfit+5' },
+                { id: 'prod6', name: 'Sunset Hoodie', price: 28.99, image: 'https://placehold.co/400x400/F4A261/333333?text=Outfit+6' },
+                { id: 'prod7', name: 'Forest Ranger Vest', price: 22.99, image: 'https://placehold.co/400x400/2A9D8F/eeeeee?text=Outfit+7' },
+                { id: 'prod8', name: 'Sunflower Overalls', price: 31.99, image: 'https://placehold.co/400x400/E9C46A/333333?text=Outfit+8' },
+                { id: 'prod9', name: 'Little Chef Apron', price: 19.99, image: 'https://placehold.co/400x400/E76F51/eeeeee?text=Outfit+9' },
+                { id: 'prod10', name: 'Ocean Breeze Shirt', price: 26.99, image: 'https://placehold.co/400x400/8ECAE6/333333?text=Outfit+10' },
+                { id: 'prod11', name: 'Classic Denim Jacket', price: 34.99, image: 'https://placehold.co/400x400/219EBC/eeeeee?text=Outfit+11' },
+                { id: 'prod12', name: 'Bumblebee Costume', price: 29.99, image: 'https://placehold.co/400x400/FFB703/333333?text=Outfit+12' },
+            ];
+
+            const productGrid = document.getElementById('product-grid');
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card bg-gray-800 rounded-lg overflow-hidden flex flex-col';
+                productCard.dataset.id = product.id;
+                productCard.dataset.name = product.name;
+                productCard.dataset.price = product.price;
+                productCard.dataset.image = product.image;
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-auto object-cover aspect-square">
+                    <div class="p-3 sm:p-4 flex flex-col flex-grow">
+                        <h3 class="font-bold text-sm sm:text-base truncate flex-grow">${product.name}</h3>
+                        <div class="mt-2 sm:mt-4 flex flex-col sm:flex-row justify-between items-center">
+                            <p class="text-gray-400 font-semibold text-base sm:text-lg mb-2 sm:mb-0">$${product.price}</p>
+                            <button class="add-to-cart-btn w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm">Add</button>
+                        </div>
+                    </div>
+                `;
+                productGrid.appendChild(productCard);
+            });
+            
             // --- MENU SCRIPT ---
             const menuButton = document.getElementById('menu-button');
             const menuPanel = document.getElementById('menu-panel');
@@ -229,7 +278,14 @@
                 if (!menuPanel.contains(e.target) && !menuButton.contains(e.target)) menuPanel.classList.add('hidden');
             });
             menuPanel.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => { if (link.getAttribute('href').startsWith('#')) menuPanel.classList.add('hidden'); });
+                link.addEventListener('click', (e) => { 
+                    const href = link.getAttribute('href');
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+                        menuPanel.classList.add('hidden');
+                    }
+                 });
             });
 
             // --- CART SCRIPT ---
@@ -314,6 +370,77 @@
             closeCartButton.addEventListener('click', closeCart);
             cartOverlay.addEventListener('click', closeCart);
 
+            // --- SPARKLE EFFECT SCRIPT ---
+            function createSparkles(element) {
+                const rect = element.getBoundingClientRect();
+                const sparkleContainer = document.getElementById('sparkle-container');
+                if (!sparkleContainer) return;
+    
+                for (let i = 0; i < 30; i++) {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+    
+                    const size = Math.random() * 8 + 2;
+                    sparkle.style.width = `${size}px`;
+                    sparkle.style.height = `${size}px`;
+    
+                    const edge = Math.floor(Math.random() * 4);
+                    let top, left;
+    
+                    switch (edge) {
+                        case 0: left = rect.left + Math.random() * rect.width; top = rect.top; break;
+                        case 1: left = rect.right; top = rect.top + Math.random() * rect.height; break;
+                        case 2: left = rect.left + Math.random() * rect.width; top = rect.bottom; break;
+                        case 3: left = rect.left; top = rect.top + Math.random() * rect.height; break;
+                    }
+    
+                    sparkle.style.left = `${left}px`;
+                    sparkle.style.top = `${top}px`;
+                    sparkle.style.animationDuration = `${Math.random() * 1 + 1.5}s`;
+                    sparkle.style.animationDelay = `${Math.random() * 0.2}s`;
+                    
+                    const horizontalDrift = (Math.random() - 0.5) * 200;
+                    sparkle.style.setProperty('--fall-x', `${horizontalDrift}px`);
+    
+                    sparkleContainer.appendChild(sparkle);
+    
+                    setTimeout(() => sparkle.remove(), 2500);
+                }
+            }
+
+            productGrid.addEventListener('click', (e) => {
+                if (e.target.classList.contains('add-to-cart-btn')) {
+                    const button = e.target;
+                    const card = button.closest('.product-card');
+                    const image = card.querySelector('img');
+                    const product = {
+                        id: card.dataset.id,
+                        name: card.dataset.name,
+                        price: parseFloat(card.dataset.price),
+                        image: card.dataset.image
+                    };
+                    const cart = getCart();
+                    const existingItem = cart.find(item => item.id === product.id);
+                    if (existingItem) {
+                        existingItem.quantity++;
+                    } else {
+                        cart.push({ ...product, quantity: 1 });
+                    }
+                    saveCart(cart);
+                    
+                    createSparkles(image);
+                    
+                    button.textContent = 'Added!';
+                    button.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+                    button.classList.add('bg-green-500', 'pointer-events-none');
+                    setTimeout(() => {
+                        button.textContent = 'Add';
+                        button.classList.remove('bg-green-500', 'pointer-events-none');
+                        button.classList.add('bg-blue-500', 'hover:bg-blue-600');
+                    }, 1000);
+                }
+            });
+
             // Initial Render
             renderCart();
         });
@@ -321,3 +448,4 @@
 
 </body>
 </html>
+
