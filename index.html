@@ -121,6 +121,40 @@
                 <p class="mt-6 text-xl text-gray-300 leading-relaxed">We believe every Labubu deserves to express their personality. Our clothes are designed with love, crafted with care, and made for creating memories. Each piece is a limited run, ensuring your Labubu stands out from the crowd.</p>
             </div>
         </section>
+        
+        <!-- Section 5: Contact -->
+        <section id="contact" class="scroll-section relative flex flex-col items-center justify-center bg-gray-900 p-4">
+             <div class="text-center w-full max-w-2xl mx-auto">
+                <h2 class="text-5xl md:text-7xl font-bold">Get In Touch</h2>
+                <p class="mt-6 text-lg text-gray-400 leading-relaxed">Have a question, a suggestion, or a special request? We'd love to hear from you. Drop us a line below!</p>
+                
+                <!-- 
+                  FORM INTEGRATION:
+                  To make this form send emails, follow these steps:
+                  1. Go to https://formspree.io/ and sign up for a free account.
+                  2. Create a "New Form" and link it to your email: labubu@gmail.com.
+                  3. Formspree will give you a unique URL with an ID, something like "https://formspree.io/f/xxxxxxxx".
+                  4. Replace the placeholder URL in the 'action' attribute below with the one Formspree gives you.
+                -->
+                <form action="https://formspree.io/f/xqabyzoj" method="POST" class="mt-8 space-y-6 text-left">
+                    <div>
+                        <label for="name" class="font-medium">Your Name</label>
+                        <input type="text" id="name" name="name" class="mt-2 w-full p-4 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" required>
+                    </div>
+                     <div>
+                        <label for="email" class="font-medium">Your Email</label>
+                        <input type="email" id="email" name="email" class="mt-2 w-full p-4 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" required>
+                    </div>
+                     <div>
+                        <label for="message" class="font-medium">Message</label>
+                        <textarea id="message" name="message" rows="5" class="mt-2 w-full p-4 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" required></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="w-full sm:w-auto bg-white text-gray-900 font-bold py-4 px-12 rounded-full text-lg hover:bg-gray-200 transition-all duration-300">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </section>
 
     </main>
 
