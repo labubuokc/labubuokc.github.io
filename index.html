@@ -97,7 +97,6 @@
                 <span>Subtotal</span>
                 <span id="cart-subtotal">$0.00</span>
             </div>
-            <!-- This is a link to the checkout page -->
             <a href="checkout.html" class="block text-center w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-lg mt-4 transition-colors">
                 Proceed to Checkout
             </a>
@@ -107,7 +106,7 @@
 
     <!-- Main Page Content -->
     <main class="scroll-container no-scrollbar">
-        <!-- Sections (Hero, Products, About, Contact) remain the same -->
+        <!-- Section 1: Hero -->
         <section id="hero" class="scroll-section relative flex items-center justify-center bg-cover bg-center" style="background-image: url('https://placehold.co/1920x1080/D6E4FF/333333?text=LABUBU+CLOSET');">
             <div class="text-center text-white">
                 <h1 class="text-5xl md:text-8xl font-black uppercase text-shadow">Labubu Closet</h1>
@@ -115,26 +114,36 @@
                 <div class="mt-8 text-xl font-bold animate-bounce text-shadow">↓ Scroll Down ↓</div>
             </div>
         </section>
+        
+        <!-- Section 2: Products -->
         <section id="products-showcase" class="scroll-section relative flex items-end justify-start p-8 md:p-16 bg-cover bg-center" style="background-image: url('https://placehold.co/1920x1080/FFE8D6/333333?text=The+Explorer+Set');">
              <div class="bg-black/40 p-6 rounded-xl backdrop-blur-sm">
-                <h2 class="text-4xl md:text-6xl font-bold text-shadow">The Explorer Set</h2>
+                <p class="text-lg font-semibold text-blue-300 tracking-widest uppercase text-shadow">Featured</p>
+                <h2 class="text-4xl md:text-6xl font-bold text-shadow mt-2">The Explorer Set</h2>
                 <p class="mt-2 max-w-lg text-lg text-shadow">Ready for adventure. This outfit features a durable canvas jacket and matching shorts.</p>
                 <a href="products.html" class="mt-4 inline-block bg-white text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition-all duration-300">Shop Now</a>
             </div>
         </section>
+        
+        <!-- Section 3: Another Product -->
         <section class="scroll-section relative flex items-start justify-end p-8 md:p-16 bg-cover bg-center" style="background-image: url('https://placehold.co/1920x1080/B7D3F2/333333?text=The+Dreamer+Onesie');">
              <div class="text-right bg-black/40 p-6 rounded-xl backdrop-blur-sm">
-                <h2 class="text-4xl md:text-6xl font-bold text-shadow">The Dreamer Onesie</h2>
+                <p class="text-lg font-semibold text-blue-300 tracking-widest uppercase text-shadow">Featured</p>
+                <h2 class="text-4xl md:text-6xl font-bold text-shadow mt-2">The Dreamer Onesie</h2>
                 <p class="mt-2 ml-auto max-w-lg text-lg text-shadow">Cozy, cute, and ready for cuddles. Made from the softest cloud-like fleece.</p>
                  <a href="products.html" class="mt-4 inline-block bg-white text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition-all duration-300">Shop Now</a>
             </div>
         </section>
+
+        <!-- Section 4: About Us -->
         <section id="about" class="scroll-section relative flex items-center justify-center bg-gray-800">
              <div class="text-center max-w-3xl mx-auto px-4">
                 <h2 class="text-5xl md:text-7xl font-bold">About Our Closet</h2>
                 <p class="mt-6 text-xl text-gray-300 leading-relaxed">We believe every Labubu deserves to express their personality. Our clothes are designed with love, crafted with care, and made for creating memories.</p>
             </div>
         </section>
+        
+        <!-- Section 5: Contact -->
         <section id="contact" class="scroll-section relative flex flex-col items-center justify-center bg-gray-900 p-4">
              <div class="text-center w-full max-w-2xl mx-auto">
                 <h2 class="text-5xl md:text-7xl font-bold">Get In Touch</h2>
@@ -156,8 +165,6 @@
                         <button type="submit" class="w-full sm:w-auto bg-white text-gray-900 font-bold py-4 px-12 rounded-full text-lg hover:bg-gray-200 transition-all duration-300">Send Message</button>
                     </div>
                 </form>
-
-                <!-- Social Media Links -->
                 <div class="mt-12">
                     <p class="text-lg text-gray-400">Follow us on social media!</p>
                     <div class="flex justify-center items-center gap-6 mt-4">
@@ -173,7 +180,6 @@
                         </a>
                     </div>
                 </div>
-
              </div>
         </section>
     </main>
@@ -200,20 +206,17 @@
             const cartCountEl = document.getElementById('cart-count');
             const cartSubtotalEl = document.getElementById('cart-subtotal');
 
-            function getCart() {
-                return JSON.parse(localStorage.getItem('labubuCart')) || [];
-            }
-
+            function getCart() { return JSON.parse(localStorage.getItem('labubuCart')) || []; }
             function saveCart(cart) {
                 localStorage.setItem('labubuCart', JSON.stringify(cart));
                 renderCart();
             }
 
             function openCart() {
+                renderCart();
                 cartOverlay.classList.remove('hidden');
                 cartPanel.classList.remove('translate-x-full');
             }
-
             function closeCart() {
                 cartOverlay.classList.add('hidden');
                 cartPanel.classList.add('translate-x-full');
@@ -221,8 +224,7 @@
             
             function renderCart() {
                 const cart = getCart();
-                cartItemsContainer.innerHTML = ''; // Clear old items
-
+                cartItemsContainer.innerHTML = '';
                 if (cart.length === 0) {
                     cartItemsContainer.innerHTML = '<p class="text-gray-400 text-center py-10">Your cart is empty.</p>';
                 } else {
@@ -245,8 +247,6 @@
                         cartItemsContainer.appendChild(itemEl);
                     });
                 }
-
-                // Update count and subtotal
                 const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
                 const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
                 cartCountEl.textContent = totalItems;
@@ -254,44 +254,33 @@
             }
             
             cartItemsContainer.addEventListener('click', (e) => {
-                const cart = getCart();
-                // Handle quantity change
+                let cart = getCart();
+                const itemId = e.target.dataset.id;
+                let itemChanged = false;
                 if (e.target.classList.contains('quantity-change')) {
-                    const itemId = e.target.dataset.id;
+                    itemChanged = true;
                     const change = parseInt(e.target.dataset.change, 10);
                     const item = cart.find(i => i.id === itemId);
                     if (item) {
                         item.quantity += change;
-                        if (item.quantity <= 0) {
-                            // Remove item if quantity is 0 or less
-                            const itemIndex = cart.findIndex(i => i.id === itemId);
-                            cart.splice(itemIndex, 1);
-                        }
+                        if (item.quantity <= 0) cart = cart.filter(i => i.id !== itemId);
                     }
                 }
-                // Handle item removal
                 if (e.target.classList.contains('remove-item')) {
-                     const itemId = e.target.dataset.id;
-                     const itemIndex = cart.findIndex(i => i.id === itemId);
-                     if (itemIndex > -1) {
-                         cart.splice(itemIndex, 1);
-                     }
+                    itemChanged = true;
+                    cart = cart.filter(i => i.id !== itemId);
                 }
-                saveCart(cart);
+                if (itemChanged) {
+                    saveCart(cart);
+                }
             });
 
-            // Event Listeners for cart UI
             cartButton.addEventListener('click', openCart);
             closeCartButton.addEventListener('click', closeCart);
             cartOverlay.addEventListener('click', closeCart);
 
             // Initial Render
             renderCart();
-            
-            // Open cart if URL hash is #cart
-            if(window.location.hash === '#cart') {
-                openCart();
-            }
         });
     </script>
 
